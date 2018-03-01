@@ -1,0 +1,41 @@
+<div align='center' class="container">
+    <h1 style="color:coral">Welcome to Sweet Bhandaar ! <i class="fa fa-smile-o"></i> </h1> 
+    <div class="row">
+        <div *ngIf="error" class="alert alert-danger">
+                <span>{{errorMessage}}</span>
+        </div>
+        <div *ngIf="!error && successMessage" class="alert alert-success">
+            <span>{{successMessage}}  <i class="fa fa-smile-o"></i> </span>
+        </div>
+        <div class="col-lg-4">
+        </div>
+        <div class="col-lg-6">
+            <div class="pull-right">
+                <a class="btn btn-info" style="color:white"><i class="fa fa-shopping-cart"></i> Cart <span *ngIf="selectedSwts?.length > 0"> {{selectedSwts?.length}}</span> <span *ngIf="selectedSwts?.length == 0"> 0 </span></a>
+            </div>    
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3" style="margin-bottom:10px" *ngFor="let swt of sweets; let i = index">
+              <div class="card" style="width:270px; height:300px">
+                        <img class="card-img-top" src="../../../assets/{{swt.name}}.jpg" alt="Card image" style="width:100%; height: 62%">
+                        <div class="card-body">
+                          <p class="card-text">{{swt.name}} - {{swt.price}} /- </p>
+                          <a (click)="buySweets(i, swt)" class="btn btn-success" style="color:white"><i class="fa fa-shopping-cart"></i> Buy</a>
+                        </div>
+              </div>
+        </div>
+        </div>
+        <div class="row">
+                    <div class="col-lg-8">
+                    </div>
+                    <div class="col-sm-4 pull-right">
+                        <label><h2 style="font-weight:lighter">Share your taste: </h2>    </label>
+                        <i style="color:darkblue" class="fa fa-2x fa-facebook"></i>
+                        <i style="color:darkblue" class="fa fa-2x fa-twitter"></i>
+                        <i style="color:darkblue" class="fa fa-2x fa-linkedin"></i> 
+                        <i style="color:darkblue" class="fa fa-2x fa-youtube"></i>
+                </div>
+        </div>
+</div>
+
