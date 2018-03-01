@@ -1,0 +1,9 @@
+applications:
+- name: sample-anglr-node-v2
+  memory: 768M
+  instances: 1
+  host: swt-bhandar
+  path: .
+  command: npm start
+  health-check-type: process
+  buildpack: nodejs_buildpack
