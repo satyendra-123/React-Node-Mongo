@@ -1,0 +1,84 @@
+<section>
+
+    <ul class="nav nav-tabs nav-justified" #navtabs role="tablist">
+
+        <li role="presentation" class="nav-item">
+            <a href="#step1" class="nav-link active" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                <i class="fa fa-shopping-bag"></i> Order Summary
+            </a>
+        </li>
+
+        <li role="presentation" class="nav-item">
+            <a href="#step2" class="nav-link disabled" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                <i class="fa fa-home" aria-hidden="true"></i> Address
+            </a>
+        </li>
+        <li role="presentation" class="nav-item">
+            <a href="#step3" class="nav-link disabled" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+                <i class="fa fa-credit-card" aria-hidden="true"></i> Cash Counter
+            </a>
+        </li>
+
+        <li role="presentation" class="nav-item">
+            <a href="#complete" class="nav-link disabled" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                <i class="fa fa-check" aria-hidden="true"></i> Complete
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content card">
+        <!--Panel 1-->
+        <div class="tab-pane active" id="step1" role="tabpanel">
+            <order-review></order-review>
+            <br>
+            <ul class="list-inline pull-xs-right">
+                <li class="list-inline-item">
+                    <button type="button" (click)="saveAndCont()" class="btn btn-primary next-step" #nextstep>Save and continue</button>
+                </li>
+            </ul>
+        </div>
+        <!--/.Panel 1-->
+        <!--Panel 2-->
+        <div class="tab-pane" id="step2" role="tabpanel">
+            <address-manage></address-manage>
+            <br/>    
+            <ul class="pull-xs-right">
+                <li class="list-inline-item">
+                    <button type="button" (click)="prevStep()" class="btn btn-default  prev-step" #prevstep>Previous</button>
+                </li>
+                <li class="list-inline-item">
+                    <button type="button" (click)="saveAndCont()" class="btn btn-deep-orange  next-step" #nextstep>Save and Feast Here</button>
+                </li>
+            </ul>
+        </div>
+        <!--/.Panel 2-->
+        <!--Panel 3-->
+        <div class="tab-pane" id="step3" role="tabpanel">
+            <br>
+            <!-- vertical Nav tabs starts -->
+            <payment></payment>
+            <!-- vertical Nav tabs ends -->
+            <br/>
+            <br/>
+            <ul class="list-inline pull-xs-right">
+                <li class="list-inline-item">
+                    <button type="button" (click)="prevStep()" class="btn btn-default prev-step" #prevstep>Previous</button>
+                </li>
+                <!--     <li class="list-inline-item">
+                    <button type="button" (click)="saveAndCont()" class="btn btn-default  next-step" #nextstep>Skip</button>
+                </li> -->
+                <li class="list-inline-item">
+                    <button type="button" (click)="saveAndCont()" class="btn btn-deep-orange btn-info-full next-step" #nextstep>Place Order</button>
+                </li>
+            </ul>
+        </div>
+        <!--/.Panel 3-->
+        <!--Panel 4-->
+        <div class="tab-pane" id="complete" role="tabpanel">
+            <br>
+            <h3>Complete</h3>
+            <p>You have successfully placed this order. There is more to taste check out the latest available sweets</p>
+        </div>
+        <!--/Panel 4-->
+    </div>
+</section>

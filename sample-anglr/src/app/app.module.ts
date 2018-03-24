@@ -1,17 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA  } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.route';
 import { AppComponent } from './app.component';
 import { HomeModule } from './components/home/home.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { ShoppingComponent } from './components/shopping/shopping.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShoppingComponent
+
   ],
   imports: [
     BrowserModule,
@@ -19,8 +20,10 @@ import { ShoppingComponent } from './components/shopping/shopping.component';
     HttpClientModule,
     CommonModule,
     RouterModule.forRoot(ROUTES),
+    MDBBootstrapModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ NO_ERRORS_SCHEMA ]
 })
 export class AppModule { }

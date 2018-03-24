@@ -1,41 +1,96 @@
-<div align='center' class="container">
-    <h1 style="color:coral">Welcome to Sweet Bhandaar ! <i class="fa fa-smile-o"></i> </h1> 
+<div class="container-fluid">
     <div class="row">
-        <div *ngIf="error" class="alert alert-danger">
-                <span>{{errorMessage}}</span>
+        <div class="col-sm-8">
+            <div align="center" class="container">
+                <h1 style="color:coral; font-weight:normal">Welcome to Sweet Bhandaar !
+                    <i class="fa fa-smile-o"></i>
+                </h1>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div *ngIf="error" class="alert alert-danger">
+                            <span>{{errorMessage}}</span>
+                        </div>
+                        <div *ngIf="!error && successMessage" class="alert alert-success">
+                            <span>{{successMessage}}
+                                <i class="fa fa-smile-o"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom:10px">
+                    <div class="col-lg-9">
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="pull-right">
+                            <a class="btn btn-info" style="color:white">
+                                <i class="fa fa-shopping-cart"></i> Cart
+                                <span *ngIf="cart.selectedSwts?.length > 0"> {{cart.selectedSwts?.length}}</span>
+                                <span *ngIf="cart.selectedSwts?.length == 0"> 0 </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row container">
+                    <div class="col-md-4" style="margin-bottom:10px" *ngFor="let swt of sweets; let i = index">
+                        <div class="card" style="width:270px; height:300px">
+                            <img class="card-img-top" src="../../../assets/{{swt.name}}.jpg" alt="Card image" style="width:100%; height: 62%">
+                            <div class="card-body">
+                                <p class="card-text">{{swt.name}} - {{swt.price}} /- </p>
+                                <a (click)="buySweets(i, swt)" class="btn btn-success" style="color:white">
+                                    <i class="fa fa-cart-arrow-down"></i> Try!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div *ngIf="!error && successMessage" class="alert alert-success">
-            <span>{{successMessage}}  <i class="fa fa-smile-o"></i> </span>
-        </div>
-        <div class="col-lg-4">
-        </div>
-        <div class="col-lg-6">
-            <div class="pull-right">
-                <a class="btn btn-info" style="color:white"><i class="fa fa-shopping-cart"></i> Cart <span *ngIf="selectedSwts?.length > 0"> {{selectedSwts?.length}}</span> <span *ngIf="selectedSwts?.length == 0"> 0 </span></a>
-            </div>    
+        <div class="col-sm-4">
+            <div class="container">
+                <div class="card" style="margin-top:115px; width: 25rem;">
+                    <div class="card-block">
+                        <h4 class="card-title" style="font-weight:normal">Your Cart</h4>
+                        <ul class="list-group" *ngFor="let selectSwt of cart.selectedSwts; let i = index">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-1">
+                                    </div>
+                                    <div class="col-sm-5">
+                                        {{selectSwt.name}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                         <input type="number" [(ngModel)]="selectSwt.count" (change)="calculateTotal(i, selectSwt)">
+                                        
+                                    </div>
+                                    <div class="col-sm-1">
+                                            <a (click)="removeItems(selectSwt, i)" class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash" style="color:white"></i>
+                                                </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <p *ngIf="cart.selectedSwts?.length == 0" class="card-text">Cart is empty please add some sweets.</p>
+                        <a *ngIf="cart.selectedSwts?.length > 0" (click)="checkOutNw()" class="pull-right btn btn-info" style="margin:11px; color:white">Checkout</a>
+                        <span style="padding-left:10px">
+                            <strong> Total: </strong> {{cart.totalAmount}}</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <br>
+    <br>
     <div class="row">
-        <div class="col-md-3" style="margin-bottom:10px" *ngFor="let swt of sweets; let i = index">
-              <div class="card" style="width:270px; height:300px">
-                        <img class="card-img-top" src="../../../assets/{{swt.name}}.jpg" alt="Card image" style="width:100%; height: 62%">
-                        <div class="card-body">
-                          <p class="card-text">{{swt.name}} - {{swt.price}} /- </p>
-                          <a (click)="buySweets(i, swt)" class="btn btn-success" style="color:white"><i class="fa fa-shopping-cart"></i> Buy</a>
-                        </div>
-              </div>
-        </div>
-        </div>
-        <div class="row">
-                    <div class="col-lg-8">
-                    </div>
-                    <div class="col-sm-4 pull-right">
-                        <label><h2 style="font-weight:lighter">Share your taste: </h2>    </label>
-                        <i style="color:darkblue" class="fa fa-2x fa-facebook"></i>
-                        <i style="color:darkblue" class="fa fa-2x fa-twitter"></i>
-                        <i style="color:darkblue" class="fa fa-2x fa-linkedin"></i> 
-                        <i style="color:darkblue" class="fa fa-2x fa-youtube"></i>
+        <div class="col-sm-8">
+            <div #checkout id="checkout">
+                <div  class="card-body" *ngIf="checkOut">
+                    <checkout></checkout>
                 </div>
+            </div>
+            <br>
         </div>
+        <div class="col-sm-4">
+        </div>
+    </div>
 </div>
-
