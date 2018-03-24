@@ -1,0 +1,51 @@
+<div class="table-responsive" *ngIf="cartData">
+      <table class="table shoping-cart-table">
+          <tbody>
+              <tr *ngFor="let order of cartData.selectedSwts; let i = index">
+                  <td width="90">
+                      <div class="cart-product-imitation">
+                          <img src="../../../../assets/small_swtImages/{{order.name}}.jpg">
+                      </div>
+                  </td>
+                  <td class="desc">
+                      <h3>
+                          <a href="#" style="color:#212121; font-size: 16px;">
+                                {{order.name}}
+                          </a>
+                      </h3>
+                      <!--  <p class="small">
+                              Gulab Jamun is a sweet for the healthy eaters
+                          </p> -->
+                      <dl class="small m-b-none">
+                          <!-- <dt>Description lists</dt> -->
+                          <dd>Delivery in 30 Min - 1 Hour: ₹65 <a hre="" target="_blank"><i class="fa fa-info-circle"></i></a></dd>
+                         <!--  <dd>Delivery T&C applied </dd> -->
+                          <dd>
+                              <span style="color:#878787; font-size:12px">Purchase Day Replacement Policy</span>
+                          </dd>
+                      </dl>
+
+                      <div class="m-t-sm">
+                          <a href="#" class="text-muted">
+                              <i class="fa fa-gift"></i> Add gift package</a>
+                          |
+                          <a href="#" class="text-muted">
+                              <i class="fa fa-trash"></i> Remove item</a>
+                      </div>
+                  </td>
+
+                  <td>
+                      <i class="fa fa-rupee"></i>{{order.price}}
+                      <!--  <s class="small text-muted">$230,00</s> -->
+                  </td>
+                  <td width="90">
+                      <input type="number" class="form-control" placeholder="{{order.count}}">
+                  </td>
+                  <td>
+                      <i class="fa fa-rupee"></i>{{order.totalAmnt}}
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+ 

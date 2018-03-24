@@ -1,5 +1,8 @@
+import { DataShareSvc } from './../services/DataShareSvc';
+import { Sweet, Cart } from './../model/sweets.model';
 import { BackendService } from './../services/backend.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -8,17 +11,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private backendSvc: BackendService) { }
+  constructor(private backendSvc: BackendService, private dataShareSvc: DataShareSvc) {
+   }
   
+   @ViewChild('checkout') public checkout:ElementRef;
+
   error: boolean = false
   errorMessage : string
   successMessage : string
-  sweets : any[];
-  selectedSwts : any[] = new Array()
+  sweets : Sweet[];
+  //selectedSwts : Sweet[] = new Array()  
+  //swtCount : number
+  cart: Cart = new Cart()
+  
+  checkOut : boolean
+  public step = 1;
 
   ngOnInit() {
     this.getSweets()
-    //this.getDataForId()
   }
 
   getSweets(){
@@ -26,7 +36,7 @@ export class HomeComponent implements OnInit {
     this.backendSvc.getSweets().subscribe(res=>{
       console.log('sweets response ',res) 
       this.sweets = res
-      this.successMessage = 'We have got taste for you from backend:'
+      this.successMessage = 'Sweets for you from backend:'
     },error=>{
         this.error = true
         this.errorMessage = error.message;
@@ -38,9 +48,41 @@ export class HomeComponent implements OnInit {
   //Purchase
   buySweets(index, swt){
     console.log('buy sweet ',index, swt)
-    if(!this.selectedSwts.includes(swt, 0)){
-        this.selectedSwts.push(swt)
+    if(!this.cart.selectedSwts.includes(swt, 0)){
+        this.cart.selectedSwts.push(swt)
     }
+  }
+
+  //To checkout and display 
+  //delievery option / address / billing information/ order detail / payment option / Success Message
+  checkOutNw(){
+    this.dataShareSvc.cart.next(this.cart)  
+    if(null != this.checkout){
+      this.checkout.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'end' });
+      this.checkOut = true; 
+    }
+  }
+
+  /* isCartEmpty(): boolean{
+    this.checkOut =  this.cart.selectedSwts.length == 0? false : true;
+    return this.checkOut
+  } */
+
+  //on changes calculate the total
+  //on increase for each sweet increase the total
+  //on decrease for each available sweet reduce the total accordingly
+  calculateTotal(index : number, swt: Sweet){
+      console.log('test logger:', swt.price,' ::::: count for selected sweet ', swt.count)
+      this.cart.totalAmount = 0;
+      this.cart.selectedSwts.forEach(swt=>{
+        swt.totalAmnt = swt.price * swt.count
+        this.cart.totalAmount = this.cart.totalAmount + swt.totalAmnt 
+      })
+  }
+
+  removeItems(swt, index){
+     this.cart.selectedSwts.splice(index, 1)
+     this.cart.totalAmount = this.cart.totalAmount > 0 ? this.cart.totalAmount - swt.count * swt.price : 0
   }
 
   getDataForId(){
