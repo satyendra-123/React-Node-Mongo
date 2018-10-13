@@ -1,11 +1,12 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-8">
-            <div align="center" class="container">
+            <div align="center" id="swtBhndrBox" class="container" style="margin-top: 5em;">
                 <h1 style="color:coral; font-weight:normal">Welcome to Sweet Bhandaar !
                     <i class="fa fa-smile-o"></i>
                 </h1>
-                <div class="row">
+                <a href="" #darkModalForm data-toggle="modal" data-target="#darkModalForm"></a>
+               <!--  <div class="row">
                     <div class="col-sm-4">
                         <div *ngIf="error" class="alert alert-danger">
                             <span>{{errorMessage}}</span>
@@ -29,7 +30,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="row container">
                     <div class="col-md-4" style="margin-bottom:10px" *ngFor="let swt of sweets; let i = index">
                         <div class="card" style="width:270px; height:300px">
@@ -72,7 +73,7 @@
                         </ul>
                         <p *ngIf="cart.selectedSwts?.length == 0" class="card-text">Cart is empty please add some sweets.</p>
                         <a *ngIf="cart.selectedSwts?.length > 0" (click)="checkOutNw()" class="pull-right btn btn-info" style="margin:11px; color:white">Checkout</a>
-                        <span style="padding-left:10px">
+                        <span style="padding-left:10px" *ngIf="cart.selectedSwts?.length > 0">
                             <strong> Total: </strong> {{cart.totalAmount}}</span>
                     </div>
                 </div>
@@ -92,5 +93,58 @@
         </div>
         <div class="col-sm-4">
         </div>
+    </div>   
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="darkModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog form-dark" role="document">
+        <!--Content-->
+        <div class="modal-content card card-image" style="width: 432px; height: 370px; background-image: url('../../../assets/sign-in/pricing-table.jpg');">
+            <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
+                <!--Header-->
+                <div class="modal-header text-center pb-4">
+                    <h3 class="modal-title w-100 white-text font-weight-bold" id="myModalLabel"><strong>SIGN</strong> <a class="green-text font-weight-bold"><strong> IN</strong></a></h3>
+                    <button type="button" class="close white-text" #dismismodal data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+                    <!--Body-->
+                    
+                      <!--Grid row-->
+                      <div class="row">
+
+                        <!--Grid column-->
+                         <div class="col-md-12">
+                            <p class="font-normal white-text d-flex justify-content-end">Great ! You have landed into delicious ocean !</p>
+                        </div> 
+                        <!--Grid column-->
+
+                    </div>
+                    <!--Grid row-->
+
+                    <!--Grid row-->
+                    <div class="row d-flex align-items-center mb-4">
+                        <!--Grid column-->
+                        <div class="text-center mb-3 col-md-12">
+                            <signin-social></signin-social>   
+                        </div>
+                        <!--Grid column-->
+
+                    </div>
+                    <!--Grid row-->
+
+                  
+                </div>
+            </div>
+        </div>
+        <!--/.Content-->
     </div>
 </div>
+<!-- Modal -->
+                
+                

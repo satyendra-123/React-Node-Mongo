@@ -1,0 +1,129 @@
+<div class="form-group">
+        <ul>
+                <ng-container *ngIf="creditCards">
+                        <li class="list-group-item" style="border:0px" *ngFor="let cc of creditCards; let i = index">
+                                <input name="group2" type="radio" [checked]="selectedCardIndex == i"  (change)="selectCCCard(i)" class="with-gap" id="radio4" name="chooseCard">
+                                <label for="radio4">Credit card ending in {{cc.ccANumber}}
+                                        <img src="../../../assets/img_payments/visa._CB.gif"> </label>
+                                <a *ngIf="selectedCardIndex == i" (click)="editCCA(cc)" class="pull-right" style="color: #2874f0">Edit</a>
+                        </li>
+                </ng-container>
+                <li class="list-group-item" style="border:0px">
+                        <input name="group2" type="radio" [checked]="selectedCardIndex == -1"  (change)="selectCCCard(-1)" class="with-gap" id="newCard" [(ngModel)]="selectedCard" name="chooseCard" value="newCard">
+                        <label for="radio5" style="font-size:14px; color: #2874f0; font-weight: 500;">Add A New Card</label>
+                </li>
+        </ul>
+</div>
+<div class="form-group">
+        <form [formGroup]="creditCardForm" (ngSubmit)="onSubmit()" *ngIf="selectedCardIndex == -1 && selectedCard == 'newCard'">
+                <div class="row">
+                        <div class="col-sm-1">
+                        </div>
+                        <div class="col-sm-5">
+                                <div class="md-form">
+                                        <input mdbActive type="text" id="form1" [ngClass]="{'invalid': (creditCardForm.controls['ccANumber'].touched || creditCardForm.controls['ccANumber'].dirty) && creditCardForm.controls['ccANumber'].invalid, 'valid': (creditCardForm.controls['ccANumber'].touched || creditCardForm.controls['ccANumber'].dirty) && creditCardForm.controls['ccANumber'].valid }" 
+                                        formControlName="ccANumber" placeholder="Enter Card Number" class="form-control">
+                                        <!-- <label for="form1" class="">Enter Card Number</label> -->
+                                        <div *ngIf="creditCardForm.controls['ccANumber'].touched || creditCardForm.controls['ccANumber'].dirty">
+                                                <span class="errDisplay" *ngIf="creditCardForm.controls['ccANumber'].errors?.required">Please fill out this field</span>
+                                                <span class="errDisplay" *ngIf="creditCardForm.controls['ccANumber'].errors?.pattern">Invalid</span>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="col-sm-2">
+                                <div class="md-form">
+                                        <input mdbActive type="text" id="form1" [ngClass]="{'invalid':(creditCardForm.controls['cvvNumber'].touched || creditCardForm.controls['cvvNumber'].dirty)  && creditCardForm.controls['cvvNumber'].invalid, 'valid': (creditCardForm.controls['cvvNumber'].touched || creditCardForm.controls['cvvNumber'].dirty) && creditCardForm.controls['cvvNumber'].valid }" 
+                                        formControlName="cvvNumber" placeholder="CVV" class="form-control">
+                                        <label for="form1" class="" style="padding-left: 3.6em;">
+                                                <i class="fa fa-question-circle"></i>
+                                        </label>
+                                        <div *ngIf="creditCardForm.controls['cvvNumber'].touched || creditCardForm.controls['cvvNumber'].dirty">
+                                                <span class="errDisplay" *ngIf="creditCardForm.controls['cvvNumber'].errors?.required">Please fill out this field</span>
+                                                <span class="errDisplay" *ngIf="creditCardForm.controls['cvvNumber'].errors?.pattern">Invalid</span>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="col-sm-4" style="margin-top: 1.7em;">
+                                <label for="selectForm" class="">Expiry</label>
+                                <select class="mdb-select" formControlName="expiryMonth">
+                                        <option value="" disabled selected>MM</option>
+                                        <option value="mon" *ngFor="let mon of months">{{mon}}</option>
+                                </select>
+                                <select class="mdb-select" formControlName="expiryYear"> 
+                                        <option value="" disabled selected>YYYY</option>
+                                        <option value="year" *ngFor="let year of years" >{{year}}</option>
+                                </select>
+                                <div *ngIf="creditCardForm.controls['expiryMonth'].touched">
+                                                <span class="errDisplay" *ngIf="creditCardForm.controls['expiryMonth'].errors?.required">Please selct month</span>
+                                 </div>
+                                 <div *ngIf="creditCardForm.controls['expiryYear'].touched">
+                                                <span class="errDisplay" *ngIf="creditCardForm.controls['expiryYear'].errors?.required">Please selct year</span>
+                                 </div>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-12">
+                                        <button type="submit" [disabled]="creditCardForm.pristine" class="pull-right btn btn-primary btn-sm">Add</button>      
+                        </div>
+                </div>
+        </form>
+
+        <!-- Existing Credit Card Form -->
+        <form [formGroup]="creditCardEditForm" (ngSubmit)="onSubmit()" *ngIf="selectedCardIndex != -1 && editExistingCard == 'editCard'">
+                <div class="row">
+                        <div class="col-sm-1">
+                        </div>
+                        <div class="col-sm-5">
+                                <div class="md-form">
+                                        <input mdbActive type="text" id="form1" [ngClass]="{'invalid': (creditCardEditForm.controls['ccANumber'].touched || creditCardEditForm.controls['ccANumber'].dirty) && creditCardEditForm.controls['ccANumber'].invalid, 'valid': (creditCardEditForm.controls['ccANumber'].touched || creditCardEditForm.controls['ccANumber'].dirty) && creditCardEditForm.controls['ccANumber'].valid }" 
+                                        formControlName="ccANumber" placeholder="Enter Card Number" class="form-control">
+                                        <!-- <label for="form1" class="">Enter Card Number</label> -->
+                                        <div *ngIf="creditCardEditForm.controls['ccANumber'].touched || creditCardEditForm.controls['ccANumber'].dirty">
+                                                <span class="errDisplay" *ngIf="creditCardEditForm.controls['ccANumber'].errors?.required">Please fill out this field</span>
+                                                <span class="errDisplay" *ngIf="creditCardEditForm.controls['ccANumber'].errors?.pattern">Invalid</span>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="col-sm-2">
+                                <div class="md-form">
+                                        <input mdbActive type="text" id="form1" [ngClass]="{'invalid': (creditCardEditForm.controls['cvvNumber'].touched || creditCardEditForm.controls['cvvNumber'].dirty) && creditCardEditForm.controls['cvvNumber'].invalid, 'valid': (creditCardEditForm.controls['cvvNumber'].touched ||  creditCardEditForm.controls['cvvNumber'].dirty) && creditCardEditForm.controls['cvvNumber'].valid }" 
+                                        formControlName="cvvNumber" placeholder="CVV" class="form-control">
+                                        <label for="form1" class="" style="padding-left: 3.6em;">
+                                                <i class="fa fa-question-circle"></i>
+                                        </label>
+                                        <div *ngIf="creditCardEditForm.controls['cvvNumber'].touched || creditCardEditForm.controls['cvvNumber'].dirty">
+                                                <span class="errDisplay" *ngIf="creditCardEditForm.controls['cvvNumber'].errors?.required">Please fill out this field</span>
+                                                <span class="errDisplay" *ngIf="creditCardEditForm.controls['cvvNumber'].errors?.pattern">Invalid</span>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="col-sm-4" style="margin-top: 1.7em;">
+                                <label for="selectForm" class="">Expiry</label>
+                                <select class="mdb-select" formControlName="expiryMonth">
+                                        <option value="" disabled selected>MM</option>
+                                        <option value="mon" *ngFor="let mon of months">{{mon}}</option>
+                                </select>
+                                <select class="mdb-select" formControlName="expiryYear"> 
+                                        <option value="" disabled selected>YYYY</option>
+                                        <option value="year" *ngFor="let year of years" >{{year}}</option>
+                                </select>
+                                <div *ngIf="creditCardEditForm.controls['expiryMonth'].touched">
+                                                <span class="errDisplay" *ngIf="creditCardEditForm.controls['expiryMonth'].errors?.required">Please selct month</span>
+                                 </div>
+                                 <div *ngIf="creditCardEditForm.controls['expiryYear'].touched">
+                                                <span class="errDisplay" *ngIf="creditCardEditForm.controls['expiryYear'].errors?.required">Please selct year</span>
+                                 </div>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-12">
+                                        <button type="submit" [disabled]="creditCardEditForm.pristine" class="pull-right btn btn-primary btn-sm">Update</button>      
+                        </div>
+                </div>
+        </form>
+        <span style="color:#878787; font-size:14px">Your card details would be securely saved for faster payments. Your CVV will not be stored.
+                <a href="">More Info</a>
+        </span>
+        <!-- Existing Credit Card Info -->
+</div>
+

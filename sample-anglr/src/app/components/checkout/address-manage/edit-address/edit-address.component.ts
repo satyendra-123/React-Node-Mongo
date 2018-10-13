@@ -10,6 +10,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class EditAddressComponent implements OnInit {
 
   addressForm : FormGroup
+  states : string[] = STATES
+
   constructor() { }
   @Input() addreess: Address
 
@@ -41,3 +43,12 @@ export class EditAddressComponent implements OnInit {
     }
   }
 }
+
+export const STATES = [
+  "Andaman &amp; Nicobar Islands", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar",
+  "Chandigarh", "Chhattisgarh", "Dadra &amp; Nagar Haveli", "Daman and Diu", "Delhi", "Goa",
+  "Gujarat", "Haryana", "Himachal Pradesh", "Jammu &amp; Kashmir", "Jharkhand", "Karnataka",
+  "Kerala", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
+  "Nagaland", "Odisha", "Puducherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana",
+  "Tripura", "Uttarakhand", "Uttar Pradesh", "West Bengal"
+]

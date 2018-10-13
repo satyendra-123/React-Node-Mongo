@@ -12,6 +12,7 @@ export class AddressManageComponent implements OnInit {
 
   selectedAddress: string;
   editExistingAddress : string
+  selectedAddrIndex : number
   addresses : Address[]
   exitingAddress: Address;
   constructor() { 
@@ -36,10 +37,23 @@ export class AddressManageComponent implements OnInit {
   getAddresses(){
     this.addresses = ADDRS
   }
+
+  changeAddress(i: number){
+    this.selectedAddrIndex = i
+    this.editExistingAddress = null
+  }
+
+  removeAddress(addr: Address) {
+    this.addresses.splice(this.addresses.indexOf(this.addresses.filter(ad => {
+      return ad.id == addr.id
+    })[0]), 1)
+  }
+  
 }
 
 export const ADDRS : Address[] = [
   {
+    id : 1,
     name: 'Satyendra Singh',
     phoneNumber: 8971564768,
     locality: 'Ramamurthy Nagar',
@@ -50,6 +64,7 @@ export const ADDRS : Address[] = [
     pincode: 560016
   },
   {
+    id : 2,
     name: 'Satyendra Singh',
     phoneNumber: 9986919325,
     locality: 'Electronic City phase 2',

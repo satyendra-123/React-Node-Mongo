@@ -7,12 +7,18 @@ import { HomeModule } from './components/home/home.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { TopnavbarComponent } from './components/common/topnavbar/topnavbar.component';
 
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  FacebookLoginProvider,
+} from "angular5-social-login";
 
 @NgModule({
   declarations: [
     AppComponent,
-
+    TopnavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -20,10 +26,30 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     HttpClientModule,
     CommonModule,
     RouterModule.forRoot(ROUTES),
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    }
+  ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })
 export class AppModule { }
+
+ 
+// Configs 
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+      [
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider("194087484713884")
+        }
+      ]
+  );
+  return config;
+}

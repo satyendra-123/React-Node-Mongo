@@ -1,3 +1,4 @@
+<topnavbar></topnavbar>
 <router-outlet></router-outlet>
 <footer align="center" style="padding:20px; background-color: #f1f3f6; margin-top:25px">
       <div class="foot">
@@ -7,10 +8,10 @@
                         </div>
                         <div class="col-sm-4">
                                         <h4 style="font-weight:lighter; float:right">Share your taste: 
-                                        <i style="color:darkblue" class="fa fa-facebook"></i>
-                                        <i style="color:darkblue" class="fa fa-twitter"></i>
-                                        <i style="color:darkblue" class="fa fa-linkedin"></i>
-                                        <i style="color:darkblue" class="fa fa-youtube"></i>
+                                        <a href="https://www.facebook.com" target="_blank"><i style="color:#3b5998" class="fa fa-facebook"></i>&nbsp;</a>
+                                        <a href="https://twitter.com/" target="_blank"><i style="color: #1da1f2" class="fa fa-twitter"></i>&nbsp;</a>
+                                        <a href="https://www.linkedin.com/" target="_blank"><i style="color: #0082ca" class="fa fa-linkedin"></i>&nbsp;</a>
+                                        <a href="https://www.youtube.com/" target="_blank"><i style="color:#ed302f" class="fa fa-youtube"></i>&nbsp;</a>
                                 </h4>    
                          </div>                                
                 </div>
@@ -28,3 +29,11 @@
             </span> -->
 
 </footer>
+
+
+<!--Scroll to top-->
+<div class="scroll-to-top" [ngClass]="{'show-scroll': navIsFixed}">
+        <button class="btn topBtn" (click)="scrollToTop()">
+            <i class="fa fa-2x fa-arrow-up"></i>
+        </button>
+</div>

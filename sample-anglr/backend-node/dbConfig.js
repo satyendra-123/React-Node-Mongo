@@ -21,8 +21,8 @@ if(process.env.VCAP_SERVICES){
     }
 }else{
     console.log('connect to localhost mysql')
-    connectionInfo.user = 'user'
-    connectionInfo.password = 'pwd'
+    connectionInfo.user = 'root'
+    connectionInfo.password = 'kotiys'
     connectionInfo.database = 'sweet-bhandar'
     connectionInfo.host = 'localhost',
     connectionInfo.port = 3306

@@ -13,6 +13,11 @@ import { AddressManageComponent } from '../checkout/address-manage/address-manag
 import { DataShareSvc } from '../services/DataShareSvc';
 import { NewAddressComponent } from '../checkout/address-manage/new-address/new-address.component';
 import { EditAddressComponent } from '../checkout/address-manage/edit-address/edit-address.component';
+import { CheckoutCcComponent } from '../checkout/payment/checkout-cc/checkout-cc.component';
+import { CheckoutDcComponent } from '../checkout/payment/checkout-dc/checkout-dc.component';
+import { CheckoutWalletComponent } from '../checkout/payment/checkout-wallet/checkout-wallet.component';
+import { CheckoutNetComponent } from '../checkout/payment/checkout-net/checkout-net.component';
+import { SigninComponent } from './../../components/common/signin/signin.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +28,12 @@ import { EditAddressComponent } from '../checkout/address-manage/edit-address/ed
       PaymentComponent,
       DeliveryComponent,   
       NewAddressComponent,
-      EditAddressComponent 
+      EditAddressComponent, 
+      CheckoutCcComponent,
+      CheckoutDcComponent,
+      CheckoutWalletComponent,
+      CheckoutNetComponent,
+      SigninComponent
     ],
     imports: [
       CommonModule, ReactiveFormsModule, FormsModule, RouterModule, RouterModule.forRoot(ROUTES, { useHash: true})

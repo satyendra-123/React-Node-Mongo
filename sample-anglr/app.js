@@ -1,7 +1,7 @@
 const express = require('express');
 var path = require('path');
 var db = require('./backend-node/dbConfig');
-
+var mongo = require('./backend-node/mongodbConfig');
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -9,7 +9,8 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 //controller
 list_data = function(req, res) {
-    callDb('select * from sweets', res)
+    //callDb('select * from sweets', res)
+    callMongoDb('', res)
 };
 
 var callDb = function(sendQry, res){
@@ -17,9 +18,19 @@ var callDb = function(sendQry, res){
     db.query(sendQry, function (error, results, fields) {
         if (error) throw error;
         result = JSON.stringify(results)
-        console.log('response:', result)
+        console.log('Mysql response:', result)
         res.send(JSON.parse(result))
       });
+}
+
+var callMongoDb = function (sendQry, res) {
+    let result;
+    mongo.qry(sendQry, function (error, results, fields) {
+        if (error) throw error;
+        result = JSON.stringify(results)
+        console.log('Mongo response:', result)
+        res.send(JSON.parse(result))
+    })
 }
 
 //backend service
