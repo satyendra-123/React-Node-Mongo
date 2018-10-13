@@ -3,6 +3,7 @@ import { Sweet, Cart } from './../model/sweets.model';
 import { BackendService } from './../services/backend.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { User } from '../model/user.model';
 
 @Component({
   selector: 'app-home',
@@ -10,25 +11,39 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private backendSvc: BackendService, private dataShareSvc: DataShareSvc) {
-   }
-  
+ 
    @ViewChild('checkout') public checkout:ElementRef;
-
+   @ViewChild('darkModalForm') public signInModal:ElementRef;
+   @ViewChild('dismismodal') public dismisModal:ElementRef;
+      
   error: boolean = false
   errorMessage : string
   successMessage : string
   sweets : Sweet[];
   //selectedSwts : Sweet[] = new Array()  
   //swtCount : number
-  cart: Cart = new Cart()
-  
+  cart: Cart = new Cart()  
   checkOut : boolean
   public step = 1;
 
+  user : User;
+
+  constructor(private backendSvc: BackendService, private dataShareSvc: DataShareSvc) {
+    this.dataShareSvc.user.subscribe(usr=>{
+        if(usr && usr.name){
+            this.user = usr
+            this.dismisModal.nativeElement.click();
+        }
+    })
+ }
+
   ngOnInit() {
     this.getSweets()
+    this.loadSignInModal();
+  }
+
+  loadSignInModal(){
+      this.signInModal.nativeElement.click();
   }
 
   getSweets(){

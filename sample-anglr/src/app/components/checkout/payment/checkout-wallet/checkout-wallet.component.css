@@ -1,0 +1,25 @@
+.walletButton{
+    padding-bottom: 0em;
+    padding-top: 0em;
+    padding-left: 3em;
+    padding-right: 3em;
+}
+
+.mbqwk{
+    padding-left: 3em;
+    padding-right: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.btn-default:focus, .btn-default:active, .btn-default.active {
+    background-color: #bdbdbd  !important;
+}
+
+.btn-default:hover {
+    background-color: #e0e0e0  !important;
+}
+
+.btn-default{
+    background-color: #e0e0e0
+}

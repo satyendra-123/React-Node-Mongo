@@ -1,9 +1,10 @@
 applications:
-- name: sample-anglr-node-v2
-  memory: 768M
+- name: sample-anglr-node-v3
+  memory: 1GB
   instances: 1
-  host: swt-bhandar
+  routes: 
+      - route: swt-bhandar-v3.cfcs.isus.emc.com
   path: .
   command: npm start
   health-check-type: process
-  buildpack: nodejs_buildpack
+  buildpack: dicf_nodejs_buildpack_latest

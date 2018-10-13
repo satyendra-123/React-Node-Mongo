@@ -14,6 +14,7 @@ export class Cart{
 }
 
 export class Address{
+    id : number
     name: string;
     phoneNumber: number;
     locality: string;

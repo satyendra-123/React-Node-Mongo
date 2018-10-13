@@ -1,0 +1,23 @@
+.orange{
+    background-color: #ff7043!important;
+    box-shadow: 0 16px 26px -10px rgba(244, 67, 54, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(244, 67, 54, 0.2);
+}
+
+.sub-textNav{
+    color: white;
+    margin-top: 1em;
+    font-weight: 410;
+    font-size: 8pt;
+}
+
+.navbar .nav-item.avatar {
+    padding: 0;
+}
+
+.avatar {
+    max-width: 150px;
+}
+
+.rounded-circle {
+    border-radius: 50%!important;
+}

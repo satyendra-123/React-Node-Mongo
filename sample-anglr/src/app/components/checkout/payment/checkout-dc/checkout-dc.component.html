@@ -1,0 +1,129 @@
+<div class="form-group">
+  <ul>
+          <ng-container *ngIf="debitCards">
+                  <li class="list-group-item" style="border:0px" *ngFor="let cc of debitCards; let i = index">
+                          <input name="group2" type="radio" [checked]="selectedCardIndex == i"  (change)="selectDCCard(i)" class="with-gap" id="radio4" name="chooseCard">
+                          <label for="radio4">Debit card ending in {{cc.dcANumber}}
+                                  <img src="../../../assets/img_payments/visa._CB.gif"> </label>
+                          <a *ngIf="selectedCardIndex == i" (click)="editDCA(cc)" class="pull-right" style="color: #2874f0">Edit</a>
+                  </li>
+          </ng-container>
+          <li class="list-group-item" style="border:0px">
+                  <input name="group2" type="radio" [checked]="selectedCardIndex == -1" (change)="selectDCCard(-1)" class="with-gap" id="newCard" [(ngModel)]="selectedCard" name="chooseCard" value="newCard">
+                  <label for="radio5" style="font-size:14px; color: #2874f0; font-weight: 500;">Add A New Card</label>
+          </li>
+  </ul>
+</div>
+<div class="form-group">
+  <form [formGroup]="debitCardForm" (ngSubmit)="onSubmit()" *ngIf="selectedCardIndex == -1 && selectedCard == 'newCard'">
+          <div class="row">
+                  <div class="col-sm-1">
+                  </div>
+                  <div class="col-sm-5">
+                          <div class="md-form">
+                                  <input mdbActive type="text" id="form1" [ngClass]="{'invalid': (debitCardForm.controls['dcANumber'].touched || debitCardForm.controls['dcANumber'].dirty)  && debitCardForm.controls['dcANumber'].invalid, 'valid': (debitCardForm.controls['dcANumber'].touched || debitCardForm.controls['dcANumber'].dirty) && debitCardForm.controls['dcANumber'].valid }" 
+                                  formControlName="dcANumber" placeholder="Enter Card Number" class="form-control">
+                                  <!-- <label for="form1" class="">Enter Card Number</label> -->
+                                  <div *ngIf="debitCardForm.controls['dcANumber'].touched || debitCardForm.controls['dcANumber'].dirty">
+                                          <span class="errDisplay" *ngIf="debitCardForm.controls['dcANumber'].errors?.required">Please fill out this field</span>
+                                          <span class="errDisplay" *ngIf="debitCardForm.controls['dcANumber'].errors?.pattern">Invalid</span>
+                                  </div>
+                          </div>
+                  </div>
+                  <div class="col-sm-2">
+                          <div class="md-form">
+                                  <input mdbActive type="text" id="form1" [ngClass]="{'invalid': debitCardForm.controls['cvvNumber'].touched && debitCardForm.controls['cvvNumber'].invalid, 'valid': debitCardForm.controls['cvvNumber'].touched && debitCardForm.controls['cvvNumber'].valid }" 
+                                  formControlName="cvvNumber" placeholder="CVV" class="form-control">
+                                  <label for="form1" class="" style="padding-left: 3.6em;">
+                                          <i class="fa fa-question-circle"></i>
+                                  </label>
+                                  <div *ngIf="debitCardForm.controls['cvvNumber'].touched || debitCardForm.controls['cvvNumber'].dirty">
+                                          <span class="errDisplay" *ngIf="debitCardForm.controls['cvvNumber'].errors?.required">Please fill out this field</span>
+                                          <span class="errDisplay" *ngIf="debitCardForm.controls['cvvNumber'].errors?.pattern">Invalid</span>
+                                  </div>
+                          </div>
+                  </div>
+                  <div class="col-sm-4" style="margin-top: 1.7em;">
+                          <label for="selectForm" class="">Expiry</label>
+                          <select class="mdb-select" formControlName="expiryMonth">
+                                  <option value="" disabled selected>MM</option>
+                                  <option value="mon" *ngFor="let mon of months">{{mon}}</option>
+                          </select>
+                          <select class="mdb-select" formControlName="expiryYear"> 
+                                  <option value="" disabled selected>YYYY</option>
+                                  <option value="year" *ngFor="let year of years" >{{year}}</option>
+                          </select>
+                          <div *ngIf="debitCardForm.controls['expiryMonth'].touched">
+                                          <span class="errDisplay" *ngIf="debitCardForm.controls['expiryMonth'].errors?.required">Please selct month</span>
+                           </div>
+                           <div *ngIf="debitCardForm.controls['expiryYear'].touched">
+                                          <span class="errDisplay" *ngIf="debitCardForm.controls['expiryYear'].errors?.required">Please selct year</span>
+                           </div>
+                  </div>
+          </div>
+          <div class="row">
+                  <div class="col-md-12">
+                                  <button type="submit" [disabled]="debitCardForm.pristine" class="pull-right btn btn-primary btn-sm">Add</button>      
+                  </div>
+          </div>
+  </form>
+
+  <!-- Existing Debit Card Form -->
+  <form [formGroup]="debitCardEditForm" (ngSubmit)="onSubmit()" *ngIf="selectedCardIndex != -1 && editExistingCard == 'editCard'">
+          <div class="row">
+                  <div class="col-sm-1">
+                  </div>
+                  <div class="col-sm-5">
+                          <div class="md-form">
+                                  <input mdbActive type="text" id="form1" [ngClass]="{'invalid': debitCardEditForm.controls['dcANumber'].touched && debitCardEditForm.controls['dcANumber'].invalid, 'valid': debitCardEditForm.controls['dcANumber'].touched && debitCardEditForm.controls['dcANumber'].valid }" 
+                                  formControlName="dcANumber" placeholder="Enter Card Number" class="form-control">
+                                  <!-- <label for="form1" class="">Enter Card Number</label> -->
+                                  <div *ngIf="debitCardEditForm.controls['dcANumber'].touched || debitCardEditForm.controls['dcANumber'].dirty">
+                                          <span class="errDisplay" *ngIf="debitCardEditForm.controls['dcANumber'].errors?.required">Please fill out this field</span>
+                                          <span class="errDisplay" *ngIf="debitCardEditForm.controls['dcANumber'].errors?.pattern">Invalid</span>
+                                  </div>
+                          </div>
+                  </div>
+                  <div class="col-sm-2">
+                          <div class="md-form">
+                                  <input mdbActive type="text" id="form1" [ngClass]="{'invalid': debitCardEditForm.controls['cvvNumber'].touched && debitCardEditForm.controls['cvvNumber'].invalid, 'valid': debitCardEditForm.controls['cvvNumber'].touched && debitCardEditForm.controls['cvvNumber'].valid }" 
+                                  formControlName="cvvNumber" placeholder="CVV" class="form-control">
+                                  <label for="form1" class="" style="padding-left: 3.6em;">
+                                          <i class="fa fa-question-circle"></i>
+                                  </label>
+                                  <div *ngIf="debitCardEditForm.controls['cvvNumber'].touched || debitCardEditForm.controls['cvvNumber'].dirty">
+                                          <span class="errDisplay" *ngIf="debitCardEditForm.controls['cvvNumber'].errors?.required">Please fill out this field</span>
+                                          <span class="errDisplay" *ngIf="debitCardEditForm.controls['cvvNumber'].errors?.pattern">Invalid</span>
+                                  </div>
+                          </div>
+                  </div>
+                  <div class="col-sm-4" style="margin-top: 1.7em;">
+                          <label for="selectForm" class="">Expiry</label>
+                          <select class="mdb-select" formControlName="expiryMonth">
+                                  <option value="" disabled selected>MM</option>
+                                  <option value="mon" *ngFor="let mon of months">{{mon}}</option>
+                          </select>
+                          <select class="mdb-select" formControlName="expiryYear"> 
+                                  <option value="" disabled selected>YYYY</option>
+                                  <option value="year" *ngFor="let year of years" >{{year}}</option>
+                          </select>
+                          <div *ngIf="debitCardEditForm.controls['expiryMonth'].touched">
+                                          <span class="errDisplay" *ngIf="debitCardEditForm.controls['expiryMonth'].errors?.required">Please selct month</span>
+                           </div>
+                           <div *ngIf="debitCardEditForm.controls['expiryYear'].touched">
+                                          <span class="errDisplay" *ngIf="debitCardEditForm.controls['expiryYear'].errors?.required">Please selct year</span>
+                           </div>
+                  </div>
+          </div>
+          <div class="row">
+                  <div class="col-md-12">
+                                  <button type="submit" [disabled]="debitCardEditForm.pristine" class="pull-right btn btn-primary btn-sm">Update</button>      
+                  </div>
+          </div>
+  </form>
+  <span style="color:#878787; font-size:14px">Your card details would be securely saved for faster payments. Your CVV will not be stored.
+          <a href="">More Info</a>
+  </span>
+  <!-- Existing Debit Card Info -->
+</div>
+
