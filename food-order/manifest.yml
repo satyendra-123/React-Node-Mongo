@@ -1,0 +1,8 @@
+---
+applications:
+  - name: food-order
+    memory: 1G
+    instances: 1
+    path: .
+    command: npm start
+    buildpack: dicf_staticfile_buildpack_latest
